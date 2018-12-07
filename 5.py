@@ -69,15 +69,3 @@ if __name__ == '__main__':
     
     end = time.perf_counter()
     print(end-start)
-
-
-
-
-
-
-'bCaAcb'
-'bC' + 'cb'
-'bCcb'
-
-'aA'
-''
