@@ -65,8 +65,6 @@ def multiple_workers(data, length, w):
         if workleft.sum() == 0:
             return time
 
-        
-
 if __name__ == '__main__':
     graph, length = get_graph()
     print(length)

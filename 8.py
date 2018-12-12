@@ -44,6 +44,7 @@ def solve_tree_2(tree):
 
     size += child_size # header, children, metadata
     metadata = tree[head+child_size : head+child_size+num_metadata]
+    
     if num_children == 0:
         value = sum(metadata)
     else:
@@ -51,6 +52,7 @@ def solve_tree_2(tree):
             if v <= num_children and v != 0:
                 print(child_data)
                 value += child_data[v-1]
+                
     return size, value
 
 if __name__ == '__main__':
