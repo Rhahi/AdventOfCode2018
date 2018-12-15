@@ -76,15 +76,9 @@ def solve_size(data, sizes=None):
 
         return coord, biggest, used_size
 
-
-def coord_conv(coord, size):
-    return coord[0]+size-1, coord[1]+size-1
-
 if __name__ == "__main__":
     puzzle = 3463
     original_grid = power_grid(puzzle)
     grid = subsum_grid2(original_grid)
     print(solve_size(grid))
     print(solve_size(grid, 300))
-
-    #print(grid)

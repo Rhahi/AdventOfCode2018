@@ -33,15 +33,7 @@ def vertical_score(data):
         else:
             current[:,0:2] -= 2 * current[:,2:4]
             return current, time - 2
-
-def sd_score(data):
-    current = np.copy(data)
-    for _ in range(15000):
-        score = np.std(current[:,1])
-        current[:,0:2] += current[:,2:4]
-        #print(",{}".format(score), end='')
     
-
 def print_msg(data):
     data = np.copy(data)
     high_x = max(data[:,0])
@@ -62,10 +54,11 @@ def print_msg(data):
 
         grid[y,x] = 1
 
-    print(grid)
+    return grid
 
 if __name__ == '__main__':
     data = get_info()
     raw_text, time = vertical_score(data)
-    print_msg(raw_text)
+    message = print_msg(raw_text)
     print(time)
+    print(grid)
