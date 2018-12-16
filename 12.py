@@ -1,6 +1,6 @@
 def get_info():
     with open('12.txt') as f:
-        initial = f.readline()[15:-1]
+        initial = f.readline()[15:].strip()
         f.readline()
         data = f.readlines()
     
@@ -74,13 +74,13 @@ def solve_part_2(pots, patterns, generations):
     prev_diff = 0
     consecutive = 0 #number of same diff occuring consecutively
 
-    #print("Gen\tScore\tDiff")
+    print("Gen\tScore\tDiff")
     for gen in range(1, generations + 1):
         pots, adjust_offset = pass_generation(pots, patterns)
         offset += adjust_offset
         score = score_pots(pots, offset)
         diff = score - prev_score
-        #print("{}\t{}\t{}".format(gen, score, diff))
+        print("{}\t{}\t{}".format(gen, score, diff))
         if diff == prev_diff:
             consecutive += 1
         else:
