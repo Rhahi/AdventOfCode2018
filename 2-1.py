@@ -2,7 +2,7 @@ def checksum():
     two = 0
     three = 0
 
-    with open('AdventOfCode/2.txt') as f:
+    with open('input/2.txt') as f:
         lines = f.readlines()
         for line in lines:
             two_check = 0

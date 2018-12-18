@@ -8,7 +8,7 @@ import time
 
 def polymer(p = None):
     if p is None:
-        with open('AdventOfCode/5.txt') as f:
+        with open('input/5.txt') as f:
             p = f.readline()
             #p = 'bCaAcb'
 

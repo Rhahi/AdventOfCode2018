@@ -2,7 +2,7 @@ from io import StringIO
 
 def get_tree_raw(example = None):
     if example == None:
-        with open('8.txt') as f:
+        with open('input/8.txt') as f:
             data = f.read().split()
     else:
         data = example.read().split()

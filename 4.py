@@ -1,14 +1,9 @@
 import numpy as np
 
-def sample():
-    with open('AdventOfCode/4.txt') as f:
-        for line in f:
-            pass
-
 def timetable():
     guards = {}
 
-    with open('AdventOfCode/4.txt') as f:
+    with open('input/4.txt') as f:
         lines = f.readlines()
         lines.sort()
         

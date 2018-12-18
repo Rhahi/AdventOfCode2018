@@ -1,5 +1,5 @@
 def get_info():
-    with open('12.txt') as f:
+    with open('input/12.txt') as f:
         initial = f.readline()[15:].strip()
         f.readline()
         data = f.readlines()

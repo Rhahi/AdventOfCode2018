@@ -5,7 +5,7 @@ import time
 def unpack_list():
     spec = []
 
-    with open('AdventOfCode/3.txt') as f:
+    with open('input/3.txt') as f:
         for line in f:
             spec.append(unpack(line))
     return spec

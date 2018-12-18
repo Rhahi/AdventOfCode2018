@@ -1,5 +1,5 @@
 def get_info():
-    with open('13.txt') as f:
+    with open('input/13.txt') as f:
         data = f.readlines()
     
     carts = []
@@ -7,7 +7,7 @@ def get_info():
     for y, line in enumerate(data):
         for x, char in enumerate(line):
             if char in cartset:
-                carts.append(Cart(x, y, cartset.index(char))) #append direction, coordinate, state
+                carts.append(Cart(x, y, cartset.index(char)))
     
     return carts, data
 
@@ -115,7 +115,7 @@ def last_collision(cart_list, grid):
         time += 1
 
     address = (cart_list[0].x, cart_list[0].y)
-    return address, time
+    return address
 
 if __name__ == "__main__":
     cart_list, grid = get_info()
@@ -123,5 +123,3 @@ if __name__ == "__main__":
 
     cart_list, grid = get_info()
     print(last_collision(cart_list, grid))
-    
-        

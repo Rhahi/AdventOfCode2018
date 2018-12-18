@@ -3,7 +3,7 @@ from io import StringIO
 
 def get_info(example = None):
     if example == None:
-        with open('9.txt') as f:
+        with open('input/9.txt') as f:
             data = f.read().split()
     else:
         data = example.read().split()

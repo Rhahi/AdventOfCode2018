@@ -4,7 +4,7 @@ def get_graph():
     graph = np.zeros(shape=(26,26), dtype=np.int)
     mentioned = set()
 
-    with open('7.txt') as f:
+    with open('input/7.txt') as f:
         data = f.readlines()
 
     for line in data:

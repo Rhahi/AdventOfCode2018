@@ -2,7 +2,7 @@ import numpy as np
 
 def get_coords():
     coords = []
-    with open('6.txt') as f:
+    with open('input/6.txt') as f:
         for line in f:
             coords.append([int(x) for x in line.split(',')])
     return coords
