@@ -37,7 +37,6 @@ class TIS100:
         self.valid = [False] * len(self.fnc)
         self.untested = True
         self.identified_function = None
-        self.hits = 0
 
     def set_reg(self, reg):
         self.r = reg
@@ -94,7 +93,7 @@ class TIS100:
         self.r[c] = 1 if self.r[a] == self.r[b] else 0
 
     def test(self, inst, before, after):
-        self.hits += 1
+        hits = 0
         for idx, f in enumerate(self.fnc):
             self.r = before.copy()
             f(*inst)
@@ -103,16 +102,19 @@ class TIS100:
             elif self.untested:
                 self.untested = False
                 self.valid[idx] = True
-        return self.valid.count(True)
+                hits += 1
+            else:
+                hits += 1
+        return hits
     
     def valid_debug(self):
         a = ["#" if i else '.' for i in self.valid]
-        print("tests:", self.hits, a)
+        print("tests:", a)
 
     def id(self):
         if self.valid.count(True) == 1:
             self.identified_function = self.fnc[self.valid.index(True)]
-            print(self.valid.index(True), self.identified_function)
+            #print(self.valid.index(True), self.identified_function)
         else:
             print("failed")
 
@@ -136,7 +138,7 @@ def identify(samples, opcodes):
         mc = opcodes[n].test(inst, before, after)
         multiple_match_count += 1 if mc >= 3 else 0
     for k, v in opcodes.items():
-        print("{:2}".format(k), end=' ')
+        #print("{:2}".format(k), end=' ')
         v.valid_debug()
         v.id()
 
@@ -164,5 +166,5 @@ if __name__ == "__main__":
     opcodes = defaultdict(TIS100)
     res1 = identify(samples, opcodes)
     print(res1)
-    res2 = run(instructions, opcodes)
-    print(res2)
+    #res2 = run(instructions, opcodes)
+    #print(res2)
