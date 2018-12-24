@@ -39,7 +39,7 @@ class TIS100:
         self.identified_function = None
 
     def set_reg(self, reg):
-        self.r = reg
+        self.r = reg #attach to external memory
 
     def __repr__(self):
         return repr(self.r)
@@ -100,35 +100,36 @@ class TIS100:
             if self.r != after:
                 self.valid[idx] = False
             elif self.untested:
-                self.untested = False
                 self.valid[idx] = True
                 hits += 1
             else:
                 hits += 1
+        self.untested = False
         return hits
     
     def valid_debug(self):
         a = ["#" if i else '.' for i in self.valid]
-        print("tests:", a)
+        print("Matches:", self.count(), a)
 
     def id(self):
-        if self.valid.count(True) == 1:
-            self.identified_function = self.fnc[self.valid.index(True)]
-            #print(self.valid.index(True), self.identified_function)
-        else:
-            print("failed")
+        if self.count() == 1:
+            self.identified_function = self.fnc[self.index()]
 
     def call(self, a, b, c):
         self.identified_function(a, b, c)
         return self.r.copy()
 
-    """
-    Before: [3, 2, 1, 1]
-    9 2 1 2
-    After:  [3, 2, 2, 1]
-    """
+    def count(self):
+        return self.valid.count(True)
+    
+    def index(self):
+        return self.valid.index(True)
 
-def identify(samples, opcodes):
+    def invalidiate(self, idx):
+        if self.count() > 1:
+            self.valid[idx] = False
+
+def sample_test(samples, opcodes):
     multiple_match_count = 0
     for sample in samples:
         instruction, before, after = sample
@@ -137,34 +138,36 @@ def identify(samples, opcodes):
 
         mc = opcodes[n].test(inst, before, after)
         multiple_match_count += 1 if mc >= 3 else 0
-    for k, v in opcodes.items():
-        #print("{:2}".format(k), end=' ')
-        v.valid_debug()
-        v.id()
 
     return multiple_match_count
+
+def identify(opcodes):
+    for _ in range(len(opcodes)):
+        for v in opcodes.values():
+            if v.count() == 1:
+                idx = v.index()
+                v.id()
+                for vv in opcodes.values():
+                    vv.invalidiate(idx)
 
 def run(instructions, opcodes):
     reg = [0,0,0,0]
     for o in opcodes.values():
         o.set_reg(reg)
 
-    print(reg)
-    for idx, inst in enumerate(instructions):
+    for inst in instructions:
         n = inst[0]
         i = inst[1:]
         opcodes[n].call(*i)
-        #print(opcodes[n].identified_function, i)
-
-        if idx % 20 == 0:
-            pass
 
     return reg[0]
 
 if __name__ == "__main__":
     samples, instructions = get_data()
     opcodes = defaultdict(TIS100)
-    res1 = identify(samples, opcodes)
+    res1 = sample_test(samples, opcodes)
     print(res1)
-    #res2 = run(instructions, opcodes)
-    #print(res2)
+    
+    identify(opcodes)
+    res2 = run(instructions, opcodes)
+    print(res2)
