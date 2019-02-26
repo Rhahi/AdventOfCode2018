@@ -167,7 +167,6 @@ if __name__ == "__main__":
     opcodes = defaultdict(TIS100)
     res1 = sample_test(samples, opcodes)
     print(res1)
-    
     identify(opcodes)
     res2 = run(instructions, opcodes)
     print(res2)
